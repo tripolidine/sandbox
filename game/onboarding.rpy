@@ -13,6 +13,9 @@ label onboarding:
     "But what I lack in experience, I think I more than make up for in raw enthusiasm... not to mention my copious spunk."
     "I can't wait to get started!"
 
+    $ calDate.replace(second=10, hour=12, minute=30, day=2, month=7, year=2012)
+    call calendar(1)
+
     scene bg office_generic at ken_burns(anchory=0.2, duration=10, maxzoom=1.1) with dissolve
 
     "(It looks like a normal office in most ways... but with a lot more toys on the desks.)"

@@ -17,10 +17,13 @@ init python:
             return real_name
         return vague_name
 
-
 # The game starts here.
 label start:
+
+    $ calDate = calDate.replace(second=10, hour=12, minute=30, day=2, month=7, year=2012)
     define studio_name = randomize_name()
+
+#    call calendar(1)
 
     call onboarding
 

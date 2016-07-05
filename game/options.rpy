@@ -11,8 +11,8 @@ init -1 python hide:
 
     ## These control the width and height of the screen.
 
-    config.screen_width = 1440
-    config.screen_height = 900
+    config.screen_width = 1920
+    config.screen_height = 1080
 
     window_screen_percentage = 0.33
 
