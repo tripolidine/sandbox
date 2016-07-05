@@ -48,6 +48,7 @@ screen say(who, what, side_image=None, two_window=False):
 
                 text what id "what"
 
+
     # If there's a side image, display it above the text.
     if side_image:
         add side_image
@@ -110,6 +111,11 @@ transform right_to_left:
     alpha 1.0
     xalign 1.5
     linear 3.0 xalign -1.5
+
+transform ken_burns(anchorx=0.5, anchory=0.5, minzoom=1.0, maxzoom=1.2, duration=20):
+    subpixel True transform_anchor True
+    xcenter anchorx ycenter anchory zoom minzoom
+    easein duration zoom maxzoom
 
 transform choice_from_right(t=0):
     subpixel True

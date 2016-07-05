@@ -45,6 +45,8 @@ init -1 python hide:
         ## The color of a focused widget face.
         widget_hover = "#97d7bd",
 
+        widget_text = "#00000",
+
         ## The color of the text in a selected widget. (For
         ## example, the current value of a preference.)
         widget_selected = "#37397f",
@@ -67,8 +69,8 @@ init -1 python hide:
 
         ## The fonts used by this theme. The default fonts may not be
         ## suitable for non-English languages.
-        #regular_font = "_theme_awt/Quicksand-Regular.ttf",
-        #bold_font = "_theme_awt/Quicksand-Bold.ttf",
+#        regular_font = "_theme_awt/Quicksand-Regular.ttf",
+#        bold_font = "_theme_awt/Quicksand-Bold.ttf",
 
         ## And we're done with the theme. The theme will customize
         ## various styles, so if we want to change them, we should
@@ -89,18 +91,18 @@ init -1 python hide:
     ## Margin is space surrounding the window, where the background
     ## is not drawn.
 
-    # style.window.left_margin = 6
-    # style.window.right_margin = 6
-    # style.window.top_margin = 6
-    # style.window.bottom_margin = 6
+    style.window.left_margin = 60
+    style.window.right_margin = 60
+    style.window.top_margin = 60
+    style.window.bottom_margin = 60
 
     ## Padding is space inside the window, where the background is
     ## drawn.
 
-    # style.window.left_padding = 6
-    # style.window.right_padding = 6
-    # style.window.top_padding = 6
-    # style.window.bottom_padding = 6
+    style.window.left_padding = 15 
+    style.window.right_padding = 15
+    style.window.top_padding = 15
+    style.window.bottom_padding = 15
 
     ## This is the minimum height of the window, including the margins
     ## and padding.
@@ -135,7 +137,8 @@ init -1 python hide:
 
     ## The file containing the default font.
 
-    style.default.font = "DejaVuSans.ttf"
+#    style.default.font = "DejaVuSans.ttf"
+    style.default.color = "#000000"
 
     ## The default size of text.
 
@@ -201,7 +204,7 @@ init -1 python hide:
     config.enter_transition = None
 
     ## Used when exiting the game menu to the game.
-    config.exit_transition = None
+    config.exit_transition = dissolve
 
     ## Used between screens of the game menu.
     config.intra_transition = None
@@ -279,11 +282,25 @@ init -1 python hide:
     ## More customizations can go here.
 
     style.say_who_window.yfill = False
-    style.say_who_window.ypadding = 5
+    style.say_who_window.ypadding = 0
+    style.say_who_window.ymargin = 0
+    style.say_who_window.ypadding = 0
+    style.say_who_window.yanchor = 0.0
+    style.say_who_window.xpos = 10
+#    style.say_who_window.background = "#000088"
     style.menu_choice.xfill = True
+    style.say_two_window_vbox.ypadding = 0
+    style.say_two_window_vbox.ymargin = 0
+
+    # fix the white tulip style's hard-coded bullshit
+    style.say_dialogue.color = style.default.color
+    style.say_label.color = style.default.color
+#    style.say_label.color = "#ffffff"
+
     #style.menu_choice_button.xfill = False
     #style.menu_choice_button.xpadding = 0
     #style.menu_choice_button.xmargin = 0
     #style.menu_window.xmargin = 0
     #style.menu_window.xfill = False
     #style.menu_window.xpadding = 0
+
