@@ -16,7 +16,7 @@ label onboarding:
     $ calDate.replace(second=10, hour=12, minute=30, day=2, month=7, year=2012)
     call calendar(1)
 
-    scene bg office_generic at ken_burns(anchory=0.2, duration=10, maxzoom=1.1) with dissolve
+    scene bg office_generic at ken_burns(anchory=0.5, duration=10, maxzoom=1.1) with dissolve
 
     "(It looks like a normal office in most ways... but with a lot more toys on the desks.)"
 
@@ -103,16 +103,8 @@ label sucked:
 label name_game:
 
     python:
-        def get_name(prompt):
-            name = renpy.input(prompt)
-            name = name.strip()
 
-            if not name:
-                return ""
-
-            return name
-
-        first_name = get_name("Please spell your first name.")
+        first_name = get_player_name("Please spell your first name.")
 
         if not first_name or first_name == "":
             first_name = ""
@@ -120,7 +112,7 @@ label name_game:
         else:
             renpy.say(hr, "So that's [first_name]? Got it. And your last name?")
 
-        last_name = get_name("Please spell your last name.")
+        last_name = get_player_name("Please spell your last name.")
 
         if not last_name or last_name == "":
             if first_name == "":
