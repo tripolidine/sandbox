@@ -6,6 +6,7 @@
 # Declare characters used by this game.
 
 define debug_skip_bullshit = True
+define stat_notifications = True
 
 init python:
 
@@ -28,22 +29,22 @@ init python:
 
         return name
 
-    register_stat("Skepticism", "skepticism", 0, 100)
-    register_stat("Pessimism", "pessimism", 0, 100)
-    register_stat("Fear", "fear", 0, 100)
-    register_stat("Fatigue", "fatigue", 0, 100)
-    register_stat("Artistry", "artistry", 0, 100)
-    register_stat("Diligence", "diligence", 0, 100)
-    register_stat("Courage", "courage", 0, 100)
-    register_stat("Fitness", "fitness", 0, 100)
-    register_stat("Anxiety", "anxiety", 0, 100)
-    register_stat("Obsequiousness", "obsequiousness", 0, 100)
-    register_stat("Charisma", "charisma", 0, 100)
     register_stat("Alcoholism", "alcoholism", 0, 100)
+    register_stat("Artistry", "artistry", 8, 100)
+    register_stat("Charisma", "charisma", 9, 100)
+    register_stat("Courage", "courage", 11, 100)
+    register_stat("Diligence", "diligence", 6, 100)
+    register_stat("Fatigue", "fatigue", 0, 100)
+    register_stat("Fitness", "fitness", 15, 100)
+    register_stat("Obsequiousness", "obsequiousness", 10, 100)
+    register_stat("Sociability", "sociability", 8, 100)
+    register_stat("Skill", "skill", 0, 100)
+    register_stat("Stress", "stress", 7, 100)
 
     dp_period("Morning", "morning_act")
     dp_choice("Get down to business.", "getbusy")
     dp_choice("Socialize in the break room.", "socialize")
+    dp_choice("Browse the internet.", "internet")
 
     dp_period("Evening", "evening_act")
     dp_choice("Play video games.", "video_games")
@@ -76,24 +77,24 @@ label new_day:
     $ morning_act = None
     $ evening_act = None
 
-    $ narrator("What should I do this morning?", interact=False)
-
 
 label morning:
 
-    "Morning"
+    call transition("Morning")
 
     call screen day_planner(["Morning"])
 
     $ period = "morning"
     $ act = morning_act
 
+    $ narrator("What should I do this morning?", interact=False)
+
     call events_run_period
 
 label evening:
 
 
-    "Evening"
+    call transition("Evening")
 
     call screen day_planner(["Evening"])
 
@@ -105,7 +106,7 @@ label evening:
 
 label night:
 
-    "Night"
+    call transition("Night")
 
     "Time for go to bed."
 

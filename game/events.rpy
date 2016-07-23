@@ -9,115 +9,185 @@ init:
     $ gg = Character('Glasses Girl', color=(192, 255, 192, 255))
     $ sg = Character('Sporty Girl', color=(255, 255, 192, 255))
     $ bg = Character('Both Girls')
+    $ b_im = Character('Becky')
     
 
 init:
     # First up, we define some simple events for the various actions, that
     # are run only if no higher-priority event is about to occur.
     
-    $ event("getbusy1", "act == 'getbusy'", event.only(), priority=200)
-    $ event("socialize1", "act == 'socialize'", event.only(), priority=200)
-    $ event("class", "act == 'class'", event.only(), priority=200)
-    $ event("class_bad", "act == 'class'", priority=210)
+    $ event("work_intro", "act == 'getbusy'", event.once(), event.only())
+    $ event("work01", "act == 'getbusy'", event.choose_one('getbusy'), priority=200)
+    $ event("work02", "act == 'getbusy'", event.choose_one('getbusy'), priority=200)
+    $ event("work03", "act == 'getbusy'", event.choose_one('getbusy'), priority=200)
+    $ event("work04", "act == 'getbusy'", event.choose_one('getbusy'), priority=200)
+    $ event("lunch_invite", "act == 'getbusy'", event.choose_one('getbusy'), priority=200)
+    $ event("socialize01", "act == 'socialize'", event.only(), priority=200)
+#    $ event("class", "act == 'class'", event.only(), priority=200)
+#    $ event("class_bad", "act == 'class'", priority=210)
     $ event("drinkalone", "act == 'drinkalone'", event.only(), priority=200)
     $ event("drinksocially", "act == 'drinksocially'", event.only(), priority=200)
     $ event("video_games", "act == 'video_games'", event.only(), priority=200)
-    $ event("cut1", "act == 'cut'", event.choose_one('cut'), priority=200)
-    $ event("cut2", "act == 'cut'", event.choose_one('cut'), priority=200)
-    $ event("fly", "act == 'fly'", event.solo(), priority=200)
-    $ event("study", "act == 'study'", event.solo(), priority=200)
-    $ event("hang", "act == 'hang'", event.solo(), priority=200)
+#    $ event("cut1", "act == 'cut'", event.choose_one('cut'), priority=200)
+#    $ event("cut2", "act == 'cut'", event.choose_one('cut'), priority=200)
+#    $ event("fly", "act == 'fly'", event.solo(), priority=200)
+#    $ event("study", "act == 'study'", event.solo(), priority=200)
+#    $ event("hang", "act == 'hang'", event.solo(), priority=200)
     $ event("exercise", "act == 'exercise'", event.solo(), priority=200)    
-    $ event("play", "act == 'play'", event.solo(), priority=200)
+#    $ event("play", "act == 'play'", event.solo(), priority=200)
 
 
     # This is an introduction event, that runs once when we first go
     # to class. 
-    $ event("introduction", "act == 'class'", event.once(), event.only())
+#    $ event("introduction", "act == 'class'", event.once(), event.only())
 
     # These are the events with glasses girl.
     #
     # The glasses girl is studying in the library, but we do not
     # talk to her.
-    $ event("gg_studying",
+#    $ event("gg_studying",
             # This takes place when the action is 'study'.
-            "act == 'study'",
+#            "act == 'study'",
             # This will only take place if no higher-priority
             # event will occur.
-            event.solo(),
+#            event.solo(),
             # This takes place at least one day after seeing the
             # introduction event.
-            event.depends("introduction"),
+#            event.depends("introduction"),
             # This takes priority over the study event.
-            priority=190)
+#            priority=190)
 
     # She asks to borrow our pen. 
-    $ event("borrow_pen",
+#    $ event("borrow_pen",
             # This takes place when we go to study, and we have an int
             # >= 50. 
-            "act == 'study' and intelligence >= 50",
+#            "act == 'study' and intelligence >= 50",
             # It runs only once.
-            event.once(),
+#            event.once(),
             # It requires the introduction event to have run at least
             # one day before.
-            event.depends("introduction"))
+#            event.depends("introduction"))
 
     # After the pen, she smiles when she sees us.
-    $ event("gg_smiling", "act == 'study'",
-            event.solo(), event.depends("borrow_pen"),
-            priority = 180)
+#    $ event("gg_smiling", "act == 'study'",
+#            event.solo(), event.depends("borrow_pen"),
+#            priority = 180)
 
     # The bookslide.
-    $ event("bookslide", "act == 'study' and intelligence == 100",
-            event.once(), event.depends("borrow_pen"))
+#    $ event("bookslide", "act == 'study' and intelligence == 100",
+#            event.once(), event.depends("borrow_pen"))
 
     # She makes us cookies.
-    $ event("cookies", "act == 'study'",
-            event.once(), event.depends("bookslide"))
+#    $ event("cookies", "act == 'study'",
+#            event.once(), event.depends("bookslide"))
 
     # Her solo ending.
-    $ event("gg_confess", "act == 'class'",
-            event.once(), event.depends("cookies"))
+#    $ event("gg_confess", "act == 'class'",
+#            event.once(), event.depends("cookies"))
     
     # Here are Sporty Girl's events that happen during the exercise act.
-    $ event("catchme", "act == 'exercise'",
-            event.depends('introduction'), event.once())
-    $ event("cantcatchme", "act == 'exercise'",
-            event.depends('catchme'), event.solo(), priority=190)
-    $ event("caughtme", "act == 'exercise' and strength >= 50",
-            event.depends('catchme'), event.once())
-    $ event("together", "act == 'exercise' and strength >= 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-    $ event("apart", "act == 'exercise' and strength < 50",
-            event.depends('caughtme'), event.solo(), priority=180)
-    $ event("pothole", "act == 'exercise' and strength >= 100",
-            event.depends('caughtme'), event.once())
-    $ event("dontsee", "act == 'exercise'",
-            event.depends('pothole'), event.solo(), priority=170)
-    $ event("sg_confess", "act == 'class'",
-            event.depends('dontsee'), event.once())    
+#    $ event("catchme", "act == 'exercise'",
+#            event.depends('introduction'), event.once())
+#    $ event("cantcatchme", "act == 'exercise'",
+#            event.depends('catchme'), event.solo(), priority=190)
+#    $ event("caughtme", "act == 'exercise' and strength >= 50",
+#            event.depends('catchme'), event.once())
+#    $ event("together", "act == 'exercise' and strength >= 50",
+#            event.depends('caughtme'), event.solo(), priority=180)
+#    $ event("apart", "act == 'exercise' and strength < 50",
+#            event.depends('caughtme'), event.solo(), priority=180)
+#    $ event("pothole", "act == 'exercise' and strength >= 100",
+#            event.depends('caughtme'), event.once())
+#    $ event("dontsee", "act == 'exercise'",
+#            event.depends('pothole'), event.solo(), priority=170)
+#    $ event("sg_confess", "act == 'class'",
+#            event.depends('dontsee'), event.once())    
 
     # Ending with both girls only happens if we have seen both of their final events
     # This needs to be higher-priority than either girl's ending.    
-    $ event('both_confess', 'act == "class"',
-            event.depends("dontsee"), event.depends("cookies"),
-            event.once(), priority = 50)
+#    $ event('both_confess', 'act == "class"',
+#            event.depends("dontsee"), event.depends("cookies"),
+#            event.once(), priority = 50)
      
 
-label getbusy1:
+label work_intro:
 
-    "I should get to work..."
-
-    $ stat_adj("diligence", 10)
+    "> You decide to get down to business."
 
     return
 
-label socialize1:
+label work01:
+
+    "(I should get to work...)"
+
+    $ stat_adj("diligence", 3)
+
+    return
+
+label work02:
+
+    "> You managed to solve a difficult problem."
+
+    $ stat_adj("skill", 5)
+
+    return
+
+label work03:
+
+    "> You go about your business uneventfully."
+
+    $ stat_adj("diligence", 2)
+
+    return
+
+label work04:
+
+    "> Some guy near you is ranting about something stupid. You find it difficult to focus..."
+
+    $ stat_adj("diligence", 2)
+    $ stat_adj("stress", 3)
+
+    return
+
+label lunch_invite:
+
+    "> You settle in to get some work done."
+    "> After some time, you receive an instant message. It's from Becky!"
+
+    b_im "want to grab some lunch?"
+
+    menu:
+
+        "sure":
+            $ stat_adj("charisma", 3)
+
+
+        "can't today, sorry":
+            "sorry, i'm kind of in the middle of something and need to focus"
+            b_im "no problem. maybe some other time"
+
+            $ stat_adj("diligence", 4)
+
+        "not with you":
+            b_im "WOW. wtf is your problem?"
+            "(She doesn't seem too happy...)"
+
+            $ stat_adj("charisma", -10)
+
+        "(Ignore the message.)":
+            "> You ignore the message and continue working."
+
+            $ stat_adj("diligence", 5)
+
+    return
+
+label socialize01:
 
     "I spent some time hanging out around the water cooler and
      discussing the latest episode of Game of Thrones."
 
-    $ stat_adj("charisma", 10)
+    $ stat_adj("charisma", 4)
+    $ stat_adj("diligence", -2)
 
     return
 
@@ -126,8 +196,8 @@ label drinksocially:
     "I went to the bar. A couple of drinks on the house and I said,
     \"Tell you who you are if you nail me to my car.\""
 
-    $ stat_adj("alcoholism", 10)
-    $ stat_adj("charisma", 5)
+    $ stat_adj("alcoholism", 2)
+    $ stat_adj("charisma", 3)
 
     return
 
@@ -146,59 +216,59 @@ label video_games:
 
     return
 
-label class:
-
-    "I make it to class just in time, and proceed to listen to the
-     teacher droning on about a wide range of topics, none of which
-     are remotely interesting."
-
-    return
+#label class:
+#
+#    "I make it to class just in time, and proceed to listen to the
+#     teacher droning on about a wide range of topics, none of which
+#     are remotely interesting."
+#
+#    return
 
 # For test purposes only.
-label class_bad:
+#label class_bad:
+#
+#    "You shouldn't be seeing this."
+#
+#    "This is because class was declared with event.only(), which
+#     should suspend processing of further events."
+#
+#    "This is really for testing purposes only."
 
-    "You shouldn't be seeing this."
+#    return
 
-    "This is because class was declared with event.only(), which
-     should suspend processing of further events."
+#label cut1:
 
-    "This is really for testing purposes only."
+#    "I cut class, and spend the morning goofing off instead."
+#    $ intelligence -= 10
 
-    return
+ #   return
 
-label cut1:
+#label cut2:
 
-    "I cut class, and spend the morning goofing off instead."
-    $ intelligence -= 10
+#    "I cut class, and spend the morning playing computer games."
 
-    return
+#    return
 
-label cut2:
-
-    "I cut class, and spend the morning playing computer games."
-
-    return
-
-label fly:
+#label fly:
     
-    "I dream that I am flying to the moon, where I meet up with two girls..."
-    "I wake up too late to go to class."
-    return
+#    "I dream that I am flying to the moon, where I meet up with two girls..."
+#    "I wake up too late to go to class."
+#    return
 
-label study:
+#label study:
 
-    "I head on down to the library, and start reading about the topics
-     I should have been reading about in class."
+#    "I head on down to the library, and start reading about the topics
+#     I should have been reading about in class."
 
-    $ intelligence += 10
-    return
+#    $ intelligence += 10
+#    return
 
-label hang:
+#label hang:
 
-    "I spend the afternoon hanging out with my friends, killing
-     some time."
+#    "I spend the afternoon hanging out with my friends, killing
+#     some time."
     
-    return
+#    return
 
 label exercise:
 
@@ -208,127 +278,127 @@ label exercise:
     $ strength += 10
     return
 
-label play:
+#label play:
 
-    "I pop a DVD into my video game console, and spend the evening
-     rolling small cities up into balls."
+#    "I pop a DVD into my video game console, and spend the evening
+#     rolling small cities up into balls."
 
-    $ strength -= 10
-    return
+#    $ strength -= 10
+#    return
 
 
 # Below here are special events that are triggered when certain
 # conditions are true. 
 
-label introduction:
+#label introduction:
 
-    "I run to school, and make it to my seat just as the bell
-     signalling the start of class rings."
+#    "I run to school, and make it to my seat just as the bell
+#     signalling the start of class rings."
 
-    t "Before we start, I have an announcement to make."
+#    t "Before we start, I have an announcement to make."
 
-    t "We will have two new students joining us. Girls, come on in."
+#    t "We will have two new students joining us. Girls, come on in."
 
-    "Two girls walk in, and stand in front of the class."
+#    "Two girls walk in, and stand in front of the class."
 
-    "They're twins."
+#    "They're twins."
 
-    "Identical twins."
+#    "Identical twins."
 
-    "Identical black hair, and the same pretty face."
+#    "Identical black hair, and the same pretty face."
 
-    "Despite that, it's still fairly easy to tell them apart."
+#    "Despite that, it's still fairly easy to tell them apart."
 
-    "The one on the left is wearing glasses."
+#    "The one on the left is wearing glasses."
 
-    "Not too thick, but enough to let me know she probably reads alot
-     of books."
+#    "Not too thick, but enough to let me know she probably reads alot
+#     of books."
 
-    "If I look a little closely, I can find another difference."
+#    "If I look a little closely, I can find another difference."
 
-    "The one on the right probably exercises a bit more."
+#    "The one on the right probably exercises a bit more."
 
-    "I can tell by the muscle tone in her legs."
+#    "I can tell by the muscle tone in her legs."
 
-    "I realize that I'm staring at her legs, and quickly look up."
+#    "I realize that I'm staring at her legs, and quickly look up."
 
-    "Suddenly, I realize that she's been talking for all this town."
+#    "Suddenly, I realize that she's been talking for all this town."
 
-    sg "... to this town. And we hope to be friends with all of you."
+#    sg "... to this town. And we hope to be friends with all of you."
 
-    sg "Well, that's about it. Sis, do you have anything to say?"
+#    sg "Well, that's about it. Sis, do you have anything to say?"
 
-    "The girl with glasses pauses for a second, and then quickly says:"
+#    "The girl with glasses pauses for a second, and then quickly says:"
 
-    gg "{size=-4}It's good to meet you all.{/size}"
+#    gg "{size=-4}It's good to meet you all.{/size}"
 
-    "She stops, and goes back to not saying anything."
+#    "She stops, and goes back to not saying anything."
 
-    t "Well, if that's all, you can take your seats and we can start
-       the class."
+#    t "Well, if that's all, you can take your seats and we can start
+#       the class."
 
-    "They do, and our teacher begins his lecture."
+#    "They do, and our teacher begins his lecture."
 
-    "I don't think anyone pays much attention to it, however."
+#    "I don't think anyone pays much attention to it, however."
 
-    return
+#    return
 
 
     
-label gg_studying:
+#label gg_studying:
 
-    "I head to the library, to get some studying done."
+#    "I head to the library, to get some studying done."
 
-    "The glasses girl is there, but she's busy reading a book, taking
-     notes as she does so."
+#    "The glasses girl is there, but she's busy reading a book, taking
+ #    notes as she does so."
 
-    "I decide not to disturb her, and instead start reading my own
-     book."
+  #  "I decide not to disturb her, and instead start reading my own
+  #   book."
 
-    $ intelligence += 10
+#    $ intelligence += 10
 
-    return
+#    return
 
-label borrow_pen:
+#label borrow_pen:
 
-    "I head to the library, to get some studying done."
+#    "I head to the library, to get some studying done."
 
-    "The glasses girl is there, but she's busy reading a book."
+#    "The glasses girl is there, but she's busy reading a book."
 
-    "I decide not to disturb her, and instead start reading my own
-     book."
+#    "I decide not to disturb her, and instead start reading my own
+#     book."
 
-    "Suddenly, I feel a tap on my shoulder."
+#    "Suddenly, I feel a tap on my shoulder."
 
-    "I look up, and see the glasses girl standing right next to me."
+#    "I look up, and see the glasses girl standing right next to me."
 
-    gg "Excuse me, but can I borrow your pen?"
+#    gg "Excuse me, but can I borrow your pen?"
 
-    gg "Mine ran out of ink."
+#    gg "Mine ran out of ink."
 
-    "I dig through my bag, to find the pen I had stashed there."
+#    "I dig through my bag, to find the pen I had stashed there."
 
-    "While I'm looking, I point out that she seems to come to the
-     library alot."
+#    "While I'm looking, I point out that she seems to come to the
+#     library alot."
 
-    gg "Hm... I guess you're right."
+#    gg "Hm... I guess you're right."
 
-    gg "There's so much stuff here, and I want to know about it all."
+#    gg "There's so much stuff here, and I want to know about it all."
 
-    gg "Surely, you must feel the same way, as you're here almost as
-        much as I am."
+#    gg "Surely, you must feel the same way, as you're here almost as
+#        much as I am."
 
-    "I don't have the heart to tell her that I'm only here to study so
-     that I don't fail out."
+#    "I don't have the heart to tell her that I'm only here to study so
+#     that I don't fail out."
 
-    "My hand brushes the pen, and I quickly pull it out and give it to
-     her."
+#    "My hand brushes the pen, and I quickly pull it out and give it to
+#     her."
 
-    gg "Thank you."
+#    gg "Thank you."
 
-    "She says, and she goes back to studying."
+#    "She says, and she goes back to studying."
 
-    return
+#    return
 
 label gg_smiling:
 

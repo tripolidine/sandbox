@@ -37,12 +37,54 @@ init -100 python:
 
             setattr(store, s.var, v)
 
+    def find_stat(name):
+        for s in __dse_stats:
+            print s.var
+            if str(s.var) == name:
+                return str(s.name)
+
     def stat_adj(stat, amount):
         v = getattr(store, stat)
-
+        f = find_stat(stat)
+        
         v += amount
 
+        #if v > stat.max:
+        #    v = stat.max
+        #if v < 0:
+        #    v = 0
+
+#        print statName
+
+        if stat_notifications:
+            stat_announce(f, amount)
+
         setattr(store, stat, v)
+
+    def stat_announce(stat, amount):
+        if 0 < amount < 5:
+            renpy.say(None, "> Your %s has slightly increased." % stat)
+        elif amount >= 5 and amount < 10:
+            renpy.say(None, "> Your %s has increased." % stat)
+        elif amount >= 10:
+            renpy.say(None, "> Your %s has greatly increased!" % stat)
+        elif amount < 0 and amount > -5:
+            renpy.say(None, "> Your %s has slightly decreased." % stat)
+        elif amount <= -5 and amount > -10:
+            renpy.say(None, "> Your %s has decreased." % stat)
+        elif amount <= -10:
+            renpy.say(None, "> Your %s has greatly decreased!" % stat)
+
+
+    def dice_roll(dice, sides):
+        total = 0
+
+        for i in range(0, dice):
+            total += random.randint(1, sides)
+
+        return total
+
+
 
     # Whenever a python statement is executed, we will ensure our stats
     # stay within range.
